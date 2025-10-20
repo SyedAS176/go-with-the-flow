@@ -15,7 +15,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(heat_flow_test tests/heat_flow_test.cpp src/heat_flow.cpp src/source.cpp)
+add_executable(heat_flow_test tests/heat_flow_test.cpp src/heat_flow.cpp src/heat_flow_printer.cpp src/source.cpp)
 add_executable(heat_flow_printer_test tests/heat_flow_printer_test.cpp src/heat_flow_printer.cpp src/heat_flow.cpp src/source.cpp)
 add_executable(main main.cpp src/heat_flow.cpp src/heat_flow_printer.cpp src/config.cpp src/source.cpp)
 

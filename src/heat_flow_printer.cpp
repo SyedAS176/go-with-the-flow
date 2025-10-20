@@ -11,26 +11,16 @@ HeatFlowPrinter::HeatFlowPrinter(HeatFlow& flow) : flow_(flow) {} // Initialize 
 std::string HeatFlowPrinter::prettyPrint() {
    std::vector<float>& rod = flow_.getRod();
 
-   // Print top line
-   std::cout << "+";
-   for (float value : rod) {
-      std::cout << "------+"; // Simple fixed-width columns, copied from the assignment website
-   }
-   std::cout << std::endl;
+   std::ostringstream oss;
+   oss << "+";
+   for (float value : rod) oss << "------+";
+   oss << "\n|";
+   for (float value : rod) oss << " " << std::fixed << std::setprecision(2) << value << " |";
+   oss << "\n+";
+   for (float value : rod) oss << "------+";
+   oss << "\n";
 
-   // Print rod values
-   std::cout << "|";
-   for (float value : rod) {
-      std::cout << " " << std::fixed << std::setprecision(2) << value << " |";
-   }
-   std::cout << std::endl;
-
-   // Print bottom line
-   std::cout << "+";
-   for (float value : rod) {
-      std::cout << "------+";
-   }
-   std::cout << std::endl;
-
-   return ""; // We don’t need to return anything in this simple version
+   std::string output = oss.str();
+   std::cout << output; // still print
+   return output;       // now the test gets the string
 }
