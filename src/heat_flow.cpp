@@ -43,14 +43,15 @@ void HeatFlow::tick() {
     int n = rod_.size();
 
     // Function to check if a section index is a source
-    auto isSourceIndex = [&](int idx) {
-        for (int i = 0; i < sourceIndexes_.size(); i++) {
-            if (sourceIndexes_[i] == idx) {
+    auto isSourceIndex = [this](int idx) {
+        for (int s : sourceIndexes_) {
+            if (s == idx) {
                 return true;
             }
         }
         return false;
     };
+
 
     // First section
     if (!isSourceIndex(0)) {

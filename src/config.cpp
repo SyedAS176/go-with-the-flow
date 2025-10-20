@@ -20,20 +20,29 @@ Config Configure::configureHeatFlow() {
     // Get k value
     std::cout << "Please enter a value for K (0.0 - 0.5, default 0.1): ";
     std::cin >> k;
-    if (k < 0.0f || k > 0.5f) k = 0.1f; // default if out of range (the .f after the number indicates a float number I learned this on: https://www.learncpp.com/
+    if (k < 0.0f || k > 0.5f) {
+        std::cout << "Warning: K value out of bounds. Using default K = 0.1\n";
+        k = 0.1f; // default if out of range (the .f after the number indicates a float number I learned this on: https://www.learncpp.com/
+    }
 
     // Get number of sections
     std::cout << "Please enter the number of sections (1 - 100, default 5): ";
     std::cin >> numberOfSections;
-    if (numberOfSections < 1 || numberOfSections > 100) numberOfSections = 5;
+    if (numberOfSections < 1 || numberOfSections > 100) {
+        std::cout << "Warning: number of sections out of bounds. Using default 5 sections.\n";
+        numberOfSections = 5;
+    };
 
     // Get initial temperature
     std::cout << "Please enter the initial temperature (-1000 to 1000, default 10): ";
     std::cin >> initialTemperature;
-    if (initialTemperature < -1000 || initialTemperature > 1000) initialTemperature = 10;
+    if (initialTemperature < -1000 || initialTemperature > 1000) {
+        std::cout << "Warning: initial temperature out of bounds. Using default 10.\n";
+        initialTemperature = 10;
+    }
 
     // Clear input buffer
-    std::cin.ignore(10000);
+    std::cin.ignore(10000, '\n');
 
     // Get sources and sinks
     std::vector<Source> sources;
@@ -47,8 +56,11 @@ Config Configure::configureHeatFlow() {
             float sourceAmount;
             std::cout << "Enter source/sink amount (-1000 to 1000, default 100): ";
             std::cin >> sourceAmount;
-            if (sourceAmount < -1000 || sourceAmount > 1000) sourceAmount = 100;
-            std::cin.ignore(); // Clear buffer
+            if (sourceAmount < -1000 || sourceAmount > 1000) {
+                std::cout << "Warning: source/sink amount out of bounds. Using default 100.\n";
+                sourceAmount = 100;
+            }
+            std::cin.ignore(10000, '\n'); // Clear buffer
             sources.push_back({i, sourceAmount});
         }
     }
@@ -65,7 +77,7 @@ int Configure::getInput(int lowerBound, int upperBound, const std::string& promp
         val = defaultValue;
     }
 
-    std::cin.ignore(); // Clear buffer
+    std::cin.ignore(10000, '\n'); // Clear buffer
     return val;
 }
 
@@ -77,6 +89,6 @@ float Configure::getInput(float lowerBound, float upperBound, const std::string&
     if (val < lowerBound || val > upperBound)
         val = defaultValue;
 
-    std::cin.ignore(); // Clear buffer
+    std::cin.ignore(10000, '\n'); // Clear buffer
     return val;
 }
